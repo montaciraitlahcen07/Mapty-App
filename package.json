@@ -1,0 +1,24 @@
+{
+  "name": "tailwind",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx @tailwindcss/cli -i src/style.css -o public/output.css --watch",
+    "prettier": "npx prettier . --write"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "install": "0.13.0",
+    "npm": "11.7.0",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "0.7.2"
+  }
+}
