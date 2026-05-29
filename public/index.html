@@ -12,6 +12,18 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script defer src="script.js"></script>
   </head>
   <body class="h-full bg-[#FFFFFF] flex font-[manrope]">
@@ -19,19 +31,19 @@
       class="sidebar bg-[#2D3439] px-[5rem] pt-[3rem] pb-[4rem] flex flex-col basis-[50rem]"
     >
       <img class="h-[5.2rem] mb-[4rem] self-center" src="img/logo.png" alt="" />
-      <ul class="h-[77vh] overflow-x-hidden">
+      <ul class="workouts h-[77vh] overflow-x-hidden">
         <form
-          class="grid px-[2.25rem] grid-cols-[1fr_1fr] gap-y-[0.5rem] gap-x-[2.5rem] transition-all duration-[0.5s]"
+          class="form grid px-[2.25rem] grid-cols-[1fr_1fr] gap-y-[0.5rem] gap-x-[2.5rem] transition-all duration-[0.5s] opacity-0 translate-x-[-30rem]"
           action=""
         >
-          <div class="flex items-center">
+          <div class="form_row flex items-center">
             <label
               class="basis-1/2 grow-0 shrink-0 text-[1.5rem] text-[rgb(236,236,236)] font-semibold"
               for="type"
               >Type</label
             >
             <select
-              class="bg-[rgb(214,222,224)] transition-all w-full duration-[0.2s] border-0 text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
+              class="form_input border-none bg-[rgb(214,222,224)] transition-all w-full outline-0 focus:bg-[#FFFFFF] duration-[0.2s] border-0 text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
               name=""
               id="type"
             >
@@ -39,56 +51,59 @@
               <option class="" value="2">Cycling</option>
             </select>
           </div>
-          <div class="flex items-center">
+          <div class="form_row flex items-center">
             <label
               class="basis-1/2 grow-0 shrink-0 text-[1.5rem] text-[rgb(236,236,236)] font-semibold"
               for="distance"
               >Distance</label
             >
             <input
-              class="bg-[rgb(214,222,224)] transition-all w-full duration-[0.2s] border-0 text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
+              class="form_input border-none bg-[rgb(214,222,224)] outline-0 focus:bg-[#FFFFFF] transition-all w-full duration-[0.2s] text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
               type="text"
               id="distance"
               placeholder="km"
             />
           </div>
-          <div class="flex items-center">
+          <div class="form_row flex items-center">
             <label
               class="basis-1/2 grow-0 shrink-0 text-[1.5rem] text-[rgb(236,236,236)] font-semibold"
               for="duration"
               >Duration</label
             >
             <input
-              class="bg-[rgb(214,222,224)] transition-all w-full duration-[0.2s] border-0 text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
+              class="form_input border-none bg-[rgb(214,222,224)] outline-0 focus:bg-[#FFFFFF] transition-all w-full duration-[0.2s] text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
               id="duration"
               type="text"
               placeholder="min"
             />
           </div>
-          <div class="flex items-center">
+          <div class="form_row flex items-center">
             <label
               class="basis-1/2 grow-0 shrink-0 text-[1.5rem] text-[rgb(236,236,236)] font-semibold"
               for="cadence"
               >Cadence</label
             >
             <input
-              class="bg-[rgb(214,222,224)] transition-all w-full duration-[0.2s] border-0 text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
+              class="form_input border-none bg-[rgb(214,222,224)] outline-0 focus:bg-[#FFFFFF] transition-all w-full duration-[0.2s] text-[1.4rem] px-[1.1rem] py-[0.3rem] rounded-[3px]"
               id="cadence"
               type="text"
               placeholder="step/min"
             />
           </div>
-          <button class="hidden"></button>
+          <button class="form_btn hidden"></button>
         </form>
       </ul>
       <p class="text-[rgb(170,170,170)] text-[1.3rem] text-center">
         © Copyright by
-        <a class="text-[#aaa] underline hover:text-[rgb(236,236,236)]" href="">
-          Jonas Schmedtmann</a
+        <a
+          class="text-[#aaa] underline hover:text-[rvergb(236,236,236)]"
+          href=""
+        >
+          Mountacir Ait Lahsen</a
         >. Use for learning or your portfolio. Don't use to teach. Don't claim
         as your own.
       </p>
     </div>
-    <div class="bg-[#AAAAAA] flex-1"></div>
+    <div id="map" class="bg-[#AAAAAA] flex-1"></div>
   </body>
 </html>
