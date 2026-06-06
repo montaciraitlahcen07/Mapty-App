@@ -1,5 +1,6 @@
 "use strict";
 const formElement = document.querySelector(".form");
+const containerWorkoutsElement = document.querySelector(".workouts");
 const optionsElement = document.querySelector(".options");
 const distanceElement = document.querySelector(".distance");
 const durationElement = document.querySelector(".duration");
@@ -16,6 +17,10 @@ class App {
     this._getPosition();
     formElement.addEventListener("submit", this._newWorkout.bind(this));
     optionsElement.addEventListener("change", this._toggleElevationField);
+    containerWorkoutsElement.addEventListener(
+      "click",
+      this._moveToPopup.bind(this),
+    );
   }
   _getPosition() {
     if (navigator.geolocation) {
@@ -90,9 +95,9 @@ class App {
         )
         .openPopup();
       if (optionsElement.value == "running") {
-        this.runningWorkout();
+        this._runningWorkout();
       } else if (optionsElement.value == "cycling") {
-        this.cyclingWorkout();
+        this._cyclingWorkout();
       }
       this.#Workouts.push(workout);
       distanceElement.value = null;
@@ -102,7 +107,7 @@ class App {
       runningElement.selected = true;
     } else alert("inputs have to be positive numbers!");
   }
-  runningWorkout() {
+  _runningWorkout() {
     workout = new Running(
       distanceElement.value,
       durationElement.value,
@@ -111,7 +116,7 @@ class App {
     );
     const htmlWorkout = `<li
           class="workout bg-[#42484D] rounded-[5px] px-9 py-6 mb-7 cursor-pointer grid grid-cols-[1fr_1fr_1fr_1fr] gap-x-6 gap-y-3 border-l-5 border-[#00c46a]"
-          data-id='${workout.id}'
+          data-id=${workout.id}
         >
           <h2
             class="text-[#ececec] workout__title text-[1.7rem] font-semibold col-span-full"
@@ -144,7 +149,7 @@ class App {
         </li>`;
     formElement.insertAdjacentHTML("afterend", htmlWorkout);
   }
-  cyclingWorkout() {
+  _cyclingWorkout() {
     workout = new Cycling(
       distanceElement.value,
       durationElement.value,
@@ -153,7 +158,7 @@ class App {
     );
     const htmlWorkout = `<li
           class="workout bg-[#42484D] rounded-[5px] px-9 py-6 mb-7 cursor-pointer grid grid-cols-[1fr_1fr_1fr_1fr] gap-x-6 gap-y-3 border-l-5 border-[#FFB545]"
-          data-id='${workout.id}'
+          data-id=${workout.id}
         >
           <h2
             class="text-[#ececec] workout__title text-[1.7rem] font-semibold col-span-full"
@@ -185,6 +190,18 @@ class App {
           </div>
         </li>`;
     formElement.insertAdjacentHTML("afterend", htmlWorkout);
+  }
+  _moveToPopup(e) {
+    const target = e.target.closest(".workout");
+    if (target?.closest("li")) {
+      const elem = this.#Workouts.find(
+        (workout) => workout.id == target.dataset.id,
+      );
+      this.#map.setView(elem.coords, 13, {
+        animate: true,
+        pan: { duration: 1 },
+      });
+    }
   }
 }
 class Workout {
